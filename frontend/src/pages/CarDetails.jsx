@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useParams, Link } from "react-router-dom";
+import { useParams } from "react-router-dom";
 
 const mockCars = [
   {
@@ -39,11 +39,24 @@ const mockCars = [
 const CarDetails = () => {
   const { id } = useParams();
   const [car, setCar] = useState(null);
+  const [pickupDate, setPickupDate] = useState("");
+  const [returnDate, setReturnDate] = useState("");
 
   useEffect(() => {
     const foundCar = mockCars.find((c) => c.id === parseInt(id));
     setCar(foundCar);
   }, [id]);
+
+  const handleReservation = (e) => {
+    e.preventDefault();
+    if (!pickupDate || !returnDate) {
+      alert("Please select pickup and return dates.");
+      return;
+    }
+
+    alert(`Reserved ${car.model} from ${pickupDate} to ${returnDate}`);
+    // Tutaj później dodamy wysyłkę do backendu
+  };
 
   if (!car) {
     return <div className="text-white p-6">Car not found.</div>;
@@ -61,12 +74,34 @@ const CarDetails = () => {
       <p className="mb-2">Range: {car.range} km</p>
       <p className="mb-4">Price per day: ${car.pricePerDay}</p>
 
-      <Link
-        to="/login"
-        className="inline-block bg-blue-500 hover:bg-blue-600 text-white py-2 px-6 rounded"
-      >
-        Reserve
-      </Link>
+      <form onSubmit={handleReservation} className="bg-gray-800 p-4 rounded">
+        <div className="mb-4">
+          <label className="block mb-1">Pickup Date</label>
+          <input
+            type="datetime-local"
+            value={pickupDate}
+            onChange={(e) => setPickupDate(e.target.value)}
+            className="w-full p-2 rounded bg-gray-700 text-white"
+          />
+        </div>
+
+        <div className="mb-4">
+          <label className="block mb-1">Return Date</label>
+          <input
+            type="datetime-local"
+            value={returnDate}
+            onChange={(e) => setReturnDate(e.target.value)}
+            className="w-full p-2 rounded bg-gray-700 text-white"
+          />
+        </div>
+
+        <button
+          type="submit"
+          className="bg-blue-500 hover:bg-blue-600 text-white py-2 px-6 rounded"
+        >
+          Confirm Reservation
+        </button>
+      </form>
     </div>
   );
 };
