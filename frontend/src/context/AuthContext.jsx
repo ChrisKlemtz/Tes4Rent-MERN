@@ -1,26 +1,25 @@
-import { createContext, useState, useEffect } from "react";
+import React, { createContext, useContext, useState, useEffect } from "react";
 
-// 1. Create context
 export const AuthContext = createContext();
 
-// 2. Provider component
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
 
-  // Example: simulate login from localStorage
   useEffect(() => {
-    const storedUser = localStorage.getItem("user");
-    if (storedUser) setUser(JSON.parse(storedUser));
+    const stored = localStorage.getItem("user");
+    if (stored) {
+      setUser(JSON.parse(stored));
+    }
   }, []);
 
   const login = (userData) => {
-    setUser(userData);
     localStorage.setItem("user", JSON.stringify(userData));
+    setUser(userData);
   };
 
   const logout = () => {
-    setUser(null);
     localStorage.removeItem("user");
+    setUser(null);
   };
 
   return (

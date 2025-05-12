@@ -1,10 +1,51 @@
-import React from "react";
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const Register = () => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const navigate = useNavigate();
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    // Symulujemy rejestrację (bez backendu)
+    const newUser = { email };
+    localStorage.setItem("user", JSON.stringify(newUser));
+
+    navigate("/dashboard");
+  };
+
   return (
-    <div className="text-white p-6">
-      <h1 className="text-3xl font-bold">Register</h1>
-      <p>Create a new Tesla4Rent account.</p>
+    <div className="flex justify-center items-center min-h-screen bg-black text-white">
+      <form
+        onSubmit={handleSubmit}
+        className="bg-gray-800 p-8 rounded-lg w-full max-w-md"
+      >
+        <h2 className="text-2xl font-bold mb-6 text-center">Register</h2>
+        <input
+          type="email"
+          placeholder="Email"
+          className="w-full p-2 mb-4 rounded bg-gray-700 text-white"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          required
+        />
+        <input
+          type="password"
+          placeholder="Password"
+          className="w-full p-2 mb-4 rounded bg-gray-700 text-white"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          required
+        />
+        <button
+          type="submit"
+          className="bg-blue-500 w-full py-2 rounded hover:bg-blue-600"
+        >
+          Sign Up
+        </button>
+      </form>
     </div>
   );
 };
