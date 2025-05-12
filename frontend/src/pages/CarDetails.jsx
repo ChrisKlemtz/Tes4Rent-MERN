@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 
 const mockCars = [
   {
@@ -41,7 +41,9 @@ const CarDetails = () => {
   const [car, setCar] = useState(null);
   const [pickupDate, setPickupDate] = useState("");
   const [returnDate, setReturnDate] = useState("");
+  const navigate = useNavigate();
 
+  // Find car by ID
   useEffect(() => {
     const foundCar = mockCars.find((c) => c.id === parseInt(id));
     setCar(foundCar);
@@ -49,13 +51,29 @@ const CarDetails = () => {
 
   const handleReservation = (e) => {
     e.preventDefault();
+
     if (!pickupDate || !returnDate) {
       alert("Please select pickup and return dates.");
       return;
     }
 
+    // Create reservation object
+    const reservation = {
+      carId: car.id,
+      carModel: car.model,
+      pickupDate,
+      returnDate,
+      image: car.image,
+    };
+
+    // Save reservation to localStorage
+    const existingReservations =
+      JSON.parse(localStorage.getItem("reservations")) || [];
+    existingReservations.push(reservation);
+    localStorage.setItem("reservations", JSON.stringify(existingReservations));
+
     alert(`Reserved ${car.model} from ${pickupDate} to ${returnDate}`);
-    // Tutaj później dodamy wysyłkę do backendu
+    navigate("/dashboard"); // Navigate to user dashboard to view the reservation
   };
 
   if (!car) {
