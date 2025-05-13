@@ -1,12 +1,50 @@
-# React + Vite
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+# 🚗 Tesla4Rent – MERN App
 
-Currently, two official plugins are available:
+**Tesla4Rent** is a modern Tesla car rental platform built using the **MERN stack** (MongoDB, Express, React, Node.js).
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## ✨ Features
 
-## Expanding the ESLint configuration
+- Browse available Tesla models
+- Tesla-styled homepage with sections: Hero, Benefits, Testimonials, Contact
+- Smooth scroll-triggered animations and responsive UI
+- Ready layout for:
+  - 🔐 User login & registration with JWT (coming soon)
+  - 📅 Booking calendar (coming soon)
+  - 🧾 User & admin dashboard (coming soon)
+  - 💳 Stripe & PayPal payments (coming soon)
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## 🛠 Tech Stack
+
+- **Frontend**: React, Vite, Tailwind CSS, Framer Motion
+- **Backend**: Express, MongoDB (to be added)
+- **Auth**: JWT (to be added)
+- **Payments**: Stripe, PayPal (to be added)
+
+## 🚀 Getting Started
+
+### Install dependencies
+
+```bash
+cd frontend
+npm install
+```
+
+### Run development server
+
+```bash
+npm run dev
+```
+
+Then open [http://localhost:5173](http://localhost:5173) in your browser.
+
+---
+
+## 👥 Authors
+
+- Lead Developer: Alex Bialas
+- Contributors: Alex, Chris
+
+## 📄 License
+
+This project is for educational and portfolio purposes.
