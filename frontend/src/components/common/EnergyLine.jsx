@@ -1,22 +1,35 @@
 import React from "react";
 import { motion } from "framer-motion";
 
-const EnergyLine = () => (
-  <motion.svg
-    viewBox="0 0 200 50"
-    className="w-full h-24 text-blue-600"
-    fill="none"
-    xmlns="http://www.w3.org/2000/svg"
-  >
-    <motion.path
-      d="M0 30 C 50 10, 150 10, 200 30"
-      stroke="currentColor"
-      strokeWidth="3"
-      initial={{ pathLength: 0 }}
-      animate={{ pathLength: 1 }}
-      transition={{ duration: 2, ease: "easeInOut" }}
-    />
-  </motion.svg>
-);
+const EnergyLine = () => {
+  return (
+    <section className="bg-white py-12">
+      <div className="max-w-6xl mx-auto px-6">
+        <motion.div
+          className="relative w-full h-1 bg-gray-300 overflow-hidden rounded-full"
+          initial={{ width: 0 }}
+          whileInView={{ width: "100%" }}
+          transition={{ duration: 1, ease: "easeOut" }}
+        >
+          <motion.div
+            className="absolute top-0 left-0 h-full bg-black rounded-full"
+            initial={{ width: 0 }}
+            whileInView={{ width: "100%" }}
+            transition={{
+              duration: 2,
+              ease: "easeInOut",
+              repeat: Infinity,
+              repeatType: "loop",
+              repeatDelay: 1,
+            }}
+          />
+        </motion.div>
+        <p className="mt-6 text-center text-gray-600 text-sm uppercase tracking-widest">
+          Powered by Clean Energy
+        </p>
+      </div>
+    </section>
+  );
+};
 
 export default EnergyLine;

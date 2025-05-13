@@ -1,21 +1,23 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { motion, useScroll, useSpring } from "framer-motion";
+import { Swiper, SwiperSlide } from "swiper/react";
+import "swiper/css";
+import "swiper/css/autoplay";
+import { Autoplay } from "swiper/modules";
+
 import CTASection from "../components/common/CTASection";
 import StatsSection from "../components/common/StatsSection";
 import EnergyLine from "../components/common/EnergyLine";
 import {
   FaBolt,
   FaLeaf,
-  FaMobileAlt,
-  FaStar,
-  FaShieldAlt,
   FaMapMarkerAlt,
   FaCar,
   FaClock,
   FaChargingStation,
   FaCheckCircle,
-  FaPhoneAlt, // ← DODAJ TO
+  FaPhoneAlt,
 } from "react-icons/fa";
 
 const fadeInUp = {
@@ -26,6 +28,29 @@ const fadeInUp = {
     transition: { duration: 0.6, ease: "easeOut" },
   },
 };
+
+const testimonials = [
+  {
+    name: "Anna",
+    text: "Fantastic service and the car was a dream!",
+    image: "https://randomuser.me/api/portraits/women/44.jpg",
+  },
+  {
+    name: "Marek",
+    text: "Tesla for the weekend? Best decision ever.",
+    image: "https://randomuser.me/api/portraits/men/34.jpg",
+  },
+  {
+    name: "Sophie",
+    text: "Seamless booking and delivery. Loved it!",
+    image: "https://randomuser.me/api/portraits/women/65.jpg",
+  },
+  {
+    name: "Liam",
+    text: "Super clean, techy and fun. Highly recommend!",
+    image: "https://randomuser.me/api/portraits/men/23.jpg",
+  },
+];
 
 const Home = () => {
   const { scrollYProgress } = useScroll();
@@ -42,7 +67,7 @@ const Home = () => {
         className="fixed top-0 left-0 right-0 h-1 bg-white origin-left z-50"
       />
 
-      {/* Hero with Video */}
+      {/* Hero */}
       <section
         className="relative min-h-screen flex items-center justify-center text-center px-6 bg-cover bg-center bg-no-repeat"
         style={{ backgroundImage: "url('/images/tesla-hero.jpg')" }}
@@ -76,29 +101,25 @@ const Home = () => {
           {[
             {
               model: "Model S",
-              image:
-                "https://tesla-cdn.thron.com/delivery/public/image/tesla/5e3cf179-09da-4104-bca0-02ba9b9b29e0/bvlatuR/std/2880x1800/Model-S-Exterior-Hero",
+              image: "/images/model-s.jpg",
               specs: ["652 km range", "3.2s 0-100 km/h", "5 seats"],
               price: "399 zł/day",
             },
             {
               model: "Model 3",
-              image:
-                "https://tesla-cdn.thron.com/delivery/public/image/tesla/0cf79998-97e5-4966-88d0-d181fbd6247f/bvlatuR/std/2880x1800/Model-3-Exterior-Hero",
+              image: "/images/model-3.jpg",
               specs: ["491 km range", "5.6s 0-100 km/h", "5 seats"],
               price: "299 zł/day",
             },
             {
               model: "Model X",
-              image:
-                "https://tesla-cdn.thron.com/delivery/public/image/tesla/65490e8b-7fd0-42b7-b3bb-e20509d1b2a4/bvlatuR/std/2880x1800/Model-X-Hero",
+              image: "/images/model-x.jpg",
               specs: ["580 km range", "2.6s 0-100 km/h", "6 seats"],
               price: "499 zł/day",
             },
             {
               model: "Model Y",
-              image:
-                "https://tesla-cdn.thron.com/delivery/public/image/tesla/e6ba6f9e-b660-4381-bf4e-2e63fdc6eeb8/bvlatuR/std/2880x1800/Model-Y-Exterior-Hero",
+              image: "/images/model-y.jpg",
               specs: ["533 km range", "5.0s 0-100 km/h", "5 seats"],
               price: "329 zł/day",
             },
@@ -127,9 +148,9 @@ const Home = () => {
       </section>
 
       {/* Why Tesla4Rent */}
-      <section id="why" className="py-20 px-6 bg-gray-900 text-center">
+      <section id="why" className="py-20 px-6 bg-white text-center text-black">
         <h2 className="text-3xl font-bold mb-10">Why Tesla4Rent?</h2>
-        <div className="grid md:grid-cols-3 gap-10 max-w-6xl mx-auto text-left text-white">
+        <div className="grid md:grid-cols-3 gap-10 max-w-6xl mx-auto text-left pt-10">
           {[
             { icon: <FaBolt />, text: "Fully Electric Fleet" },
             { icon: <FaChargingStation />, text: "Free Charging Included" },
@@ -138,105 +159,123 @@ const Home = () => {
             { icon: <FaCheckCircle />, text: "Full Insurance Coverage" },
             { icon: <FaLeaf />, text: "Zero Emissions" },
           ].map((item, index) => (
-            <div key={index} className="flex items-start gap-4">
-              <div className="text-3xl">{item.icon}</div>
-              <p className="text-lg">{item.text}</p>
-            </div>
-          ))}
-        </div>
-      </section>
-      {/* Testimonials */}
-      <section id="testimonials" className="py-20 px-6 bg-black text-center">
-        <h2 className="text-3xl font-bold mb-10">What Our Clients Say</h2>
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
-          {[
-            {
-              name: "Anna",
-              text: "Fantastic service and the car was a dream!",
-              image: "https://randomuser.me/api/portraits/women/44.jpg",
-            },
-            {
-              name: "Marek",
-              text: "Tesla for the weekend? Best decision ever.",
-              image: "https://randomuser.me/api/portraits/men/34.jpg",
-            },
-            {
-              name: "Sophie",
-              text: "Seamless booking and delivery. Loved it!",
-              image: "https://randomuser.me/api/portraits/women/65.jpg",
-            },
-            {
-              name: "Liam",
-              text: "Super clean, techy and fun. Highly recommend!",
-              image: "https://randomuser.me/api/portraits/men/23.jpg",
-            },
-            {
-              name: "Olivia",
-              text: "Perfect for our wedding day. Thank you!",
-              image: "https://randomuser.me/api/portraits/women/30.jpg",
-            },
-            {
-              name: "Jakub",
-              text: "Great experience, great car, great price.",
-              image: "https://randomuser.me/api/portraits/men/60.jpg",
-            },
-          ].map((testimonial, index) => (
-            <div
+            <motion.div
               key={index}
-              className="bg-white text-black p-6 rounded-lg shadow text-left flex items-start gap-4"
+              className="flex items-center gap-4 bg-gray-100 p-4 rounded-lg shadow hover:shadow-md transition"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ delay: index * 0.1 }}
+              viewport={{ once: true }}
             >
-              <img
-                src={testimonial.image}
-                alt={testimonial.name}
-                className="w-12 h-12 rounded-full object-cover"
-              />
-              <div>
-                <div className="font-semibold">{testimonial.name}</div>
-                <div className="text-yellow-500">★★★★★</div>
-                <p className="mt-1 text-sm">{testimonial.text}</p>
-              </div>
-            </div>
+              <div className="text-3xl text-black">{item.icon}</div>
+              <p className="text-lg font-medium text-gray-800">{item.text}</p>
+            </motion.div>
           ))}
         </div>
       </section>
 
-      {/* Contact + Location */}
-      <section id="contact" className="py-20 px-6 bg-gray-900 text-center">
-        <h2 className="text-3xl font-bold mb-10">Get in Touch</h2>
-        <div className="grid md:grid-cols-2 gap-12 max-w-6xl mx-auto text-left text-gray-300">
-          <div className="space-y-4">
-            <p>
-              <FaPhoneAlt className="inline-block mr-2 text-white" /> +48 600
-              000 000
+      {/* Testimonials */}
+      <motion.section
+        id="testimonials"
+        className="py-20 px-6 bg-gray-100 text-center"
+        initial={{ opacity: 0, y: 40 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6 }}
+        viewport={{ once: true }}
+      >
+        <h2 className="text-3xl font-bold text-black mb-10">
+          What Our Clients Say
+        </h2>
+        <Swiper
+          modules={[Autoplay]}
+          slidesPerView={1}
+          spaceBetween={20}
+          autoplay={{ delay: 3500, disableOnInteraction: false }}
+          breakpoints={{
+            768: { slidesPerView: 2 },
+            1024: { slidesPerView: 3 },
+          }}
+          loop={true}
+          className="max-w-6xl mx-auto"
+        >
+          {testimonials.map((testimonial, index) => (
+            <SwiperSlide key={index}>
+              <motion.div
+                className="bg-white rounded-xl shadow-md p-8 flex flex-col items-center text-center h-full hover:shadow-xl transition"
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ delay: index * 0.1 }}
+              >
+                <img
+                  src={testimonial.image}
+                  alt={testimonial.name}
+                  className="w-16 h-16 rounded-full object-cover mb-4"
+                />
+                <div className="font-semibold text-black">
+                  {testimonial.name}
+                </div>
+                <div className="text-yellow-500 text-sm mb-2">★★★★★</div>
+                <p className="text-sm text-gray-600">{testimonial.text}</p>
+              </motion.div>
+            </SwiperSlide>
+          ))}
+        </Swiper>
+      </motion.section>
+
+      {/* Contact Section */}
+      <motion.section
+        id="contact"
+        className="py-20 px-6 bg-white text-center"
+        initial={{ opacity: 0, y: 40 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6 }}
+        viewport={{ once: true }}
+      >
+        <h2 className="text-3xl font-bold text-black mb-10">Get in Touch</h2>
+        <div className="grid md:grid-cols-2 gap-12 max-w-6xl mx-auto text-left">
+          {/* Contact Info */}
+          <motion.div
+            className="bg-gray-100 rounded-xl p-8 shadow-xl text-black space-y-4"
+            initial={{ opacity: 0, x: -50 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            transition={{ delay: 0.2 }}
+          >
+            <p className="text-lg">
+              <FaPhoneAlt className="inline-block mr-2 text-black" />
+              +49 600 000 000
             </p>
-            <p>
-              <FaPhoneAlt className="inline-block mr-2 text-white" />{" "}
+            <p className="text-lg">
+              <FaPhoneAlt className="inline-block mr-2 text-black" />
               support@tesla4rent.pl
             </p>
-            <p>Mon–Fri: 8:00 – 18:00</p>
-            <p>
-              <FaMapMarkerAlt className="inline-block mr-2 text-white" />{" "}
-              Szczecin & Surroundings
+            <p className="text-gray-600">Mon–Fri: 8:00 – 18:00</p>
+            <p className="text-lg">
+              <FaMapMarkerAlt className="inline-block mr-2 text-black" />
+              Berlin & Surroundings
             </p>
-            <p>Delivery available to your location</p>
-          </div>
-          <iframe
-            className="w-full h-64 rounded-lg shadow"
-            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2322.95219821065!2d14.55281131589177!3d53.428543179997314!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4700c6b6e3dd6633%3A0x6a16342f99c12c85!2sSzczecin!5e0!3m2!1sen!2spl!4v1686330931496!5m2!1sen!2spl"
-            allowFullScreen
-            loading="lazy"
-            title="Szczecin Map"
-          ></iframe>
+            <p className="text-gray-600">Delivery available to your location</p>
+          </motion.div>
+
+          {/* Map */}
+          <motion.div
+            className="overflow-hidden rounded-xl shadow-xl"
+            initial={{ opacity: 0, x: 50 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            transition={{ delay: 0.2 }}
+          >
+            <iframe
+              className="w-full h-64 md:h-full rounded-xl"
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2429.9828451004384!2d13.38885931578784!3d52.517036979811735!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47a851c79f0b6c03%3A0x42b4a7f97cd8b838!2sBerlin!5e0!3m2!1sen!2sde!4v1686330931496!5m2!1sen!2sde"
+              allowFullScreen
+              loading="lazy"
+              title="Berlin Map"
+            ></iframe>
+          </motion.div>
         </div>
-      </section>
+      </motion.section>
 
-      {/* EnergyLine */}
-      <EnergyLine />
-
-      {/* StatsSection */}
       <StatsSection />
-
-      {/* CTA Section */}
+      <EnergyLine />
       <CTASection />
     </div>
   );

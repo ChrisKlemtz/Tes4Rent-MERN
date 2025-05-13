@@ -10,19 +10,35 @@ const stats = [
 
 const StatsSection = () => (
   <motion.section
-    className="py-20 bg-gray-100 text-center"
+    className="py-20 bg-white text-center"
     initial={{ opacity: 0, y: 40 }}
     whileInView={{ opacity: 1, y: 0 }}
     transition={{ duration: 0.6 }}
     viewport={{ once: true }}
   >
-    <h2 className="text-3xl font-bold mb-10">Our Impact in Numbers</h2>
+    <h2 className="text-3xl font-bold text-black mb-10">
+      Our Impact in Numbers
+    </h2>
     <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
       {stats.map((stat, index) => (
-        <div key={index} className="text-4xl font-bold">
-          <CountUp end={stat.value} duration={3} separator=" " />
-          <p className="text-lg font-medium mt-2">{stat.label}</p>
-        </div>
+        <motion.div
+          key={index}
+          className="bg-white shadow-lg rounded-lg p-6"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ delay: index * 0.2 }}
+          viewport={{ once: true }}
+        >
+          <div className="text-4xl font-bold text-black">
+            <CountUp
+              end={stat.value}
+              duration={2}
+              separator=" "
+              enableScrollSpy
+            />
+          </div>
+          <p className="text-lg text-gray-600 mt-2">{stat.label}</p>
+        </motion.div>
       ))}
     </div>
   </motion.section>
