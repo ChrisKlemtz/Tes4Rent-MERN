@@ -12,11 +12,11 @@ const Button = ({
       type={type}
       onClick={onClick}
       disabled={disabled}
-      className={\`px-6 py-2 rounded font-semibold transition $\{
+      className={`px-6 py-2 rounded font-semibold transition ${
         disabled
           ? "bg-gray-400 cursor-not-allowed"
           : "bg-blue-600 text-white hover:bg-blue-700"
-      \} \${className}\`}
+      } ${className}`}
     >
       {children}
     </button>
