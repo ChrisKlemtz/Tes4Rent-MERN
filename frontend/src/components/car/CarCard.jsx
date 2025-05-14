@@ -1,25 +1,31 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { motion } from "framer-motion";
 
 const CarCard = ({ car }) => {
   return (
-    <div className="bg-gray-800 text-white rounded-lg shadow-lg p-6">
+    <motion.div
+      className="bg-black text-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-shadow"
+      whileHover={{ scale: 1.02 }}
+    >
       <img
         src={car.image}
         alt={car.model}
-        className="w-full h-40 object-cover rounded-lg"
+        className="w-full h-48 object-cover"
       />
-      <h3 className="text-xl font-semibold mt-4">{car.model}</h3>
-      <p className="text-sm">
-        {car.range} km range | ${car.pricePerDay}/day
-      </p>
-      <Link
-        to={`/cars/${car.id}`}
-        className="block mt-4 bg-blue-500 text-white text-center py-2 rounded-md"
-      >
-        View Details
-      </Link>
-    </div>
+      <div className="p-4">
+        <h2 className="text-2xl font-semibold mb-1">{car.model}</h2>
+        <p className="text-gray-400 text-sm mb-2">Range: {car.range} km</p>
+        <p className="text-white font-medium mb-4">€{car.pricePerDay} / day</p>
+
+        <Link
+          to={`/cars/${car.id}`}
+          className="block w-full text-center bg-white text-black py-2 rounded-lg font-semibold hover:bg-gray-200 transition"
+        >
+          View Details
+        </Link>
+      </div>
+    </motion.div>
   );
 };
 

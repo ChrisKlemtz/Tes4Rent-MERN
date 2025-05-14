@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { motion } from "framer-motion";
 
 const fleetData = [
   {
@@ -46,11 +47,19 @@ const AdminDashboard = () => {
   });
 
   return (
-    <div className="min-h-screen bg-white text-black p-8">
-      <h1 className="text-4xl font-bold mb-8 text-center">Admin Dashboard</h1>
+    <motion.div
+      className="min-h-screen bg-white text-black px-6 py-16 max-w-7xl mx-auto"
+      initial={{ opacity: 0, y: 40 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.6 }}
+    >
+      <h1 className="text-4xl font-bold mb-12 text-center">Admin Dashboard</h1>
 
-      {/* Account Info */}
-      <div className="bg-gray-100 p-6 rounded-lg shadow mb-10 max-w-3xl mx-auto">
+      {/* Admin Info */}
+      <motion.div
+        className="bg-gray-100 p-6 rounded-2xl shadow mb-10 max-w-3xl mx-auto"
+        whileHover={{ scale: 1.01 }}
+      >
         <h2 className="text-xl font-semibold mb-2">👤 Admin Info</h2>
         <p>
           <strong>Name:</strong> Ola Bialas
@@ -61,12 +70,15 @@ const AdminDashboard = () => {
         <p>
           <strong>Role:</strong> Super Admin
         </p>
-      </div>
+      </motion.div>
 
-      {/* Fleet Filter + Table */}
-      <div className="bg-gray-100 p-6 rounded-lg shadow mb-10 max-w-5xl mx-auto">
+      {/* Fleet Table */}
+      <motion.div
+        className="bg-gray-100 p-6 rounded-2xl shadow mb-10"
+        whileHover={{ scale: 1.01 }}
+      >
         <h2 className="text-xl font-semibold mb-4">🚗 Manage Fleet</h2>
-        <div className="flex flex-wrap gap-4 mb-4">
+        <div className="flex flex-wrap gap-4 mb-6">
           <input
             type="text"
             placeholder="Filter by model"
@@ -82,46 +94,54 @@ const AdminDashboard = () => {
             className="p-2 border border-gray-300 rounded w-full md:w-1/3"
           />
         </div>
-        <table className="w-full text-left border border-gray-300">
-          <thead>
-            <tr className="bg-gray-200 text-sm">
-              <th className="p-3 border">Model</th>
-              <th className="p-3 border">Seats</th>
-              <th className="p-3 border">Range (km)</th>
-              <th className="p-3 border">0-100 km/h</th>
-              <th className="p-3 border">Price €/day</th>
-            </tr>
-          </thead>
-          <tbody>
-            {filteredFleet.map((car, i) => (
-              <tr key={i} className="hover:bg-gray-100 text-sm">
-                <td className="p-3 border">{car.model}</td>
-                <td className="p-3 border">{car.seats}</td>
-                <td className="p-3 border">{car.range}</td>
-                <td className="p-3 border">{car.acceleration}</td>
-                <td className="p-3 border font-semibold">€{car.price}</td>
+        <div className="overflow-x-auto">
+          <table className="w-full text-left border border-gray-300 text-sm">
+            <thead>
+              <tr className="bg-gray-200">
+                <th className="p-3 border">Model</th>
+                <th className="p-3 border">Seats</th>
+                <th className="p-3 border">Range (km)</th>
+                <th className="p-3 border">0-100 km/h</th>
+                <th className="p-3 border">Price €/day</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
+            </thead>
+            <tbody>
+              {filteredFleet.map((car, i) => (
+                <tr key={i} className="hover:bg-gray-100">
+                  <td className="p-3 border">{car.model}</td>
+                  <td className="p-3 border">{car.seats}</td>
+                  <td className="p-3 border">{car.range}</td>
+                  <td className="p-3 border">{car.acceleration}</td>
+                  <td className="p-3 border font-semibold">€{car.price}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </motion.div>
 
       {/* Placeholder panels */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-5xl mx-auto">
-        <div className="bg-gray-100 p-6 rounded-lg shadow">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <motion.div
+          className="bg-gray-100 p-6 rounded-2xl shadow"
+          whileHover={{ scale: 1.01 }}
+        >
           <h2 className="text-xl font-semibold mb-2">👥 Manage Users</h2>
           <p className="text-gray-500 text-sm">
             User list, ban/unban, etc. coming soon.
           </p>
-        </div>
-        <div className="bg-gray-100 p-6 rounded-lg shadow">
+        </motion.div>
+        <motion.div
+          className="bg-gray-100 p-6 rounded-2xl shadow"
+          whileHover={{ scale: 1.01 }}
+        >
           <h2 className="text-xl font-semibold mb-2">📅 Manage Reservations</h2>
           <p className="text-gray-500 text-sm">
             Reservation list, status, calendar view, etc. coming soon.
           </p>
-        </div>
+        </motion.div>
       </div>
-    </div>
+    </motion.div>
   );
 };
 
