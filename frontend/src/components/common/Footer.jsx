@@ -29,14 +29,7 @@ const Footer = () => {
                 Fleet
               </Link>
             </li>
-            <li>
-              <Link
-                to="/booking"
-                className="hover:text-white transition-opacity duration-200"
-              >
-                Booking
-              </Link>
-            </li>
+            <li></li>
           </ul>
         </div>
         <div>
