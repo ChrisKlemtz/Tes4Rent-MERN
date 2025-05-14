@@ -15,7 +15,7 @@ const Footer = () => {
           <ul className="space-y-2 text-gray-400">
             <li>
               <Link
-                to="/about"
+                to="about"
                 className="hover:text-white transition-opacity duration-200"
               >
                 About
@@ -37,7 +37,7 @@ const Footer = () => {
           <ul className="space-y-2 text-gray-400">
             <li>
               <Link
-                to="/contact"
+                to="contact"
                 className="hover:text-white transition-opacity duration-200"
               >
                 Contact
@@ -45,7 +45,7 @@ const Footer = () => {
             </li>
             <li>
               <Link
-                to="/faq"
+                to="/FAQ"
                 className="hover:text-white transition-opacity duration-200"
               >
                 FAQ
@@ -53,7 +53,7 @@ const Footer = () => {
             </li>
             <li>
               <Link
-                to="/terms"
+                to="/Terms"
                 className="hover:text-white transition-opacity duration-200"
               >
                 Terms & Conditions

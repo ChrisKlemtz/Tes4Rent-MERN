@@ -15,12 +15,12 @@ const Header = () => {
             Fleet
           </Link>
 
-          <a href="/#about" className="hover:text-gray-300 transition">
+          <Link to="/about" className="hover:text-gray-300 transition">
             About
-          </a>
-          <a href="/#contact" className="hover:text-gray-300 transition">
+          </Link>
+          <Link to="/contact" className="hover:text-gray-300 transition">
             Contact
-          </a>
+          </Link>
         </nav>
       </div>
 
