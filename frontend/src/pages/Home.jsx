@@ -1,10 +1,12 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { motion, useScroll, useSpring } from "framer-motion";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/autoplay";
 import { Autoplay } from "swiper/modules";
+import AOS from "aos";
+import "aos/dist/aos.css";
 
 import CTASection from "../components/common/CTASection";
 import StatsSection from "../components/common/StatsSection";
@@ -19,15 +21,6 @@ import {
   FaCheckCircle,
   FaPhoneAlt,
 } from "react-icons/fa";
-
-const fadeInUp = {
-  hidden: { opacity: 0, y: 40 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.6, ease: "easeOut" },
-  },
-};
 
 const testimonials = [
   {
@@ -60,17 +53,22 @@ const Home = () => {
     restDelta: 0.001,
   });
 
+  useEffect(() => {
+    AOS.init({ once: true, duration: 800 });
+  }, []);
+
   return (
     <div className="text-white bg-black scroll-smooth">
       <motion.div
         style={{ scaleX }}
-        className="fixed top-0 left-0 right-0 h-1 bg-white origin-left z-50"
+        className="fixed top-0 left-0 right-0 h-1 bg-green-400 origin-left z-50"
       />
 
       {/* Hero */}
       <section
         className="relative min-h-screen flex items-center justify-center text-center px-6 bg-cover bg-center bg-no-repeat"
         style={{ backgroundImage: "url('/images/tesla-hero.jpg')" }}
+        data-aos="fade-in"
       >
         <div className="absolute inset-0 bg-black bg-opacity-60" />
         <div className="relative z-10 max-w-4xl">
@@ -95,52 +93,61 @@ const Home = () => {
       </section>
 
       {/* Fleet */}
-      <section id="fleet" className="py-20 px-6 text-center bg-black">
-        <h2 className="text-3xl font-bold mb-10">Our Fleet</h2>
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 max-w-6xl mx-auto">
+      <section
+        id="fleet"
+        className="min-h-screen px-6 py-28 bg-white text-black"
+        data-aos="fade-left"
+      >
+        <h2 className="text-4xl font-bold text-center mb-14">Our Fleet</h2>
+        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-10 max-w-6xl mx-auto w-full">
           {[
             {
               model: "Model S",
               image: "/images/model-s.jpg",
               specs: ["652 km range", "3.2s 0-100 km/h", "5 seats"],
-              price: "399 zł/day",
+              price: "399 €/day",
             },
             {
               model: "Model 3",
               image: "/images/model-3.jpg",
               specs: ["491 km range", "5.6s 0-100 km/h", "5 seats"],
-              price: "299 zł/day",
+              price: "299 €/day",
             },
             {
               model: "Model X",
-              image: "/images/model-x.jpg",
+              image: "/images/model-s.jpg",
               specs: ["580 km range", "2.6s 0-100 km/h", "6 seats"],
-              price: "499 zł/day",
+              price: "499 €/day",
             },
             {
               model: "Model Y",
-              image: "/images/model-y.jpg",
+              image: "/images/model-3.jpg",
               specs: ["533 km range", "5.0s 0-100 km/h", "5 seats"],
-              price: "329 zł/day",
+              price: "329 €/day",
             },
           ].map((car, index) => (
             <div
               key={index}
-              className="bg-white text-black rounded-lg overflow-hidden shadow-lg transition hover:scale-105"
+              className="bg-white text-black rounded-2xl overflow-hidden shadow-xl hover:shadow-2xl transition-transform transform hover:scale-105 duration-300"
             >
-              <img
-                src={car.image}
-                alt={car.model}
-                className="h-40 w-full object-cover"
-              />
-              <div className="p-4">
-                <h3 className="text-xl font-semibold mb-2">{car.model}</h3>
-                {car.specs.map((spec, i) => (
-                  <p key={i} className="text-sm text-gray-600">
-                    {spec}
-                  </p>
-                ))}
-                <p className="font-bold mt-2">{car.price}</p>
+              <div className="w-full h-64 flex items-center justify-center bg-gray-100">
+                <img
+                  src={car.image}
+                  alt={car.model}
+                  className="max-h-full object-contain"
+                  loading="lazy"
+                />
+              </div>
+              <div className="p-6">
+                <h3 className="text-2xl font-bold mb-3 text-gray-900">
+                  {car.model}
+                </h3>
+                <ul className="text-sm text-gray-600 mb-4 space-y-1">
+                  {car.specs.map((spec, i) => (
+                    <li key={i}>• {spec}</li>
+                  ))}
+                </ul>
+                <p className="font-semibold text-gray-800">{car.price}</p>
               </div>
             </div>
           ))}
@@ -148,40 +155,57 @@ const Home = () => {
       </section>
 
       {/* Why Tesla4Rent */}
-      <section id="why" className="py-20 px-6 bg-white text-center text-black">
-        <h2 className="text-3xl font-bold mb-10">Why Tesla4Rent?</h2>
-        <div className="grid md:grid-cols-3 gap-10 max-w-6xl mx-auto text-left pt-10">
+      <section
+        id="why"
+        className="min-h-screen flex flex-col justify-center items-center bg-black text-white px-6 py-28"
+        data-aos="fade-right"
+      >
+        <h2 className="text-4xl font-bold mb-14 text-center">
+          Why Tesla4Rent?
+        </h2>
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-10 max-w-6xl w-full">
           {[
-            { icon: <FaBolt />, text: "Fully Electric Fleet" },
-            { icon: <FaChargingStation />, text: "Free Charging Included" },
-            { icon: <FaClock />, text: "5-Minute Online Booking" },
-            { icon: <FaCar />, text: "Modern, Maintained Teslas" },
-            { icon: <FaCheckCircle />, text: "Full Insurance Coverage" },
-            { icon: <FaLeaf />, text: "Zero Emissions" },
+            {
+              icon: <FaBolt className="text-yellow-400" />,
+              text: "Fully Electric Fleet",
+            },
+            {
+              icon: <FaChargingStation className="text-green-400" />,
+              text: "Free Charging Included",
+            },
+            {
+              icon: <FaClock className="text-blue-400" />,
+              text: "5-Minute Online Booking",
+            },
+            {
+              icon: <FaCar className="text-red-400" />,
+              text: "Modern, Maintained Teslas",
+            },
+            {
+              icon: <FaCheckCircle className="text-purple-400" />,
+              text: "Full Insurance Coverage",
+            },
+            {
+              icon: <FaLeaf className="text-emerald-400" />,
+              text: "Zero Emissions",
+            },
           ].map((item, index) => (
-            <motion.div
+            <div
               key={index}
-              className="flex items-center gap-4 bg-gray-100 p-4 rounded-lg shadow hover:shadow-md transition"
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ delay: index * 0.1 }}
-              viewport={{ once: true }}
+              className="bg-gray-900 hover:bg-gray-800 transition rounded-xl p-6 shadow-lg flex items-start gap-4"
             >
-              <div className="text-3xl text-black">{item.icon}</div>
-              <p className="text-lg font-medium text-gray-800">{item.text}</p>
-            </motion.div>
+              <div className="text-4xl">{item.icon}</div>
+              <p className="text-lg font-medium">{item.text}</p>
+            </div>
           ))}
         </div>
       </section>
 
       {/* Testimonials */}
-      <motion.section
+      <section
         id="testimonials"
-        className="py-20 px-6 bg-gray-100 text-center"
-        initial={{ opacity: 0, y: 40 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6 }}
-        viewport={{ once: true }}
+        className="pt-28 pb-36 px-6 bg-gray-100 text-center"
+        data-aos="fade-up"
       >
         <h2 className="text-3xl font-bold text-black mb-10">
           What Our Clients Say
@@ -200,12 +224,7 @@ const Home = () => {
         >
           {testimonials.map((testimonial, index) => (
             <SwiperSlide key={index}>
-              <motion.div
-                className="bg-white rounded-xl shadow-md p-8 flex flex-col items-center text-center h-full hover:shadow-xl transition"
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ delay: index * 0.1 }}
-              >
+              <div className="bg-white rounded-xl shadow-md p-8 flex flex-col items-center text-center h-full hover:shadow-xl transition">
                 <img
                   src={testimonial.image}
                   alt={testimonial.name}
@@ -216,53 +235,37 @@ const Home = () => {
                 </div>
                 <div className="text-yellow-500 text-sm mb-2">★★★★★</div>
                 <p className="text-sm text-gray-600">{testimonial.text}</p>
-              </motion.div>
+              </div>
             </SwiperSlide>
           ))}
         </Swiper>
-      </motion.section>
+      </section>
 
-      {/* Contact Section */}
-      <motion.section
+      {/* Contact */}
+      <section
         id="contact"
         className="py-20 px-6 bg-white text-center"
-        initial={{ opacity: 0, y: 40 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6 }}
-        viewport={{ once: true }}
+        data-aos="fade-up"
       >
         <h2 className="text-3xl font-bold text-black mb-10">Get in Touch</h2>
         <div className="grid md:grid-cols-2 gap-12 max-w-6xl mx-auto text-left">
-          {/* Contact Info */}
-          <motion.div
-            className="bg-gray-100 rounded-xl p-8 shadow-xl text-black space-y-4"
-            initial={{ opacity: 0, x: -50 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            transition={{ delay: 0.2 }}
-          >
+          <div className="bg-gray-100 rounded-xl p-8 shadow-xl text-black space-y-4">
             <p className="text-lg">
-              <FaPhoneAlt className="inline-block mr-2 text-black" />
-              +49 600 000 000
+              <FaPhoneAlt className="inline-block mr-2 text-black" /> +49 600
+              000 000
             </p>
             <p className="text-lg">
-              <FaPhoneAlt className="inline-block mr-2 text-black" />
+              <FaPhoneAlt className="inline-block mr-2 text-black" />{" "}
               support@tesla4rent.pl
             </p>
             <p className="text-gray-600">Mon–Fri: 8:00 – 18:00</p>
             <p className="text-lg">
-              <FaMapMarkerAlt className="inline-block mr-2 text-black" />
-              Berlin & Surroundings
+              <FaMapMarkerAlt className="inline-block mr-2 text-black" /> Berlin
+              & Surroundings
             </p>
             <p className="text-gray-600">Delivery available to your location</p>
-          </motion.div>
-
-          {/* Map */}
-          <motion.div
-            className="overflow-hidden rounded-xl shadow-xl"
-            initial={{ opacity: 0, x: 50 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            transition={{ delay: 0.2 }}
-          >
+          </div>
+          <div className="overflow-hidden rounded-xl shadow-xl">
             <iframe
               className="w-full h-64 md:h-full rounded-xl"
               src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2429.9828451004384!2d13.38885931578784!3d52.517036979811735!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47a851c79f0b6c03%3A0x42b4a7f97cd8b838!2sBerlin!5e0!3m2!1sen!2sde!4v1686330931496!5m2!1sen!2sde"
@@ -270,10 +273,11 @@ const Home = () => {
               loading="lazy"
               title="Berlin Map"
             ></iframe>
-          </motion.div>
+          </div>
         </div>
-      </motion.section>
+      </section>
 
+      {/* Final Sections */}
       <StatsSection />
       <EnergyLine />
       <CTASection />
