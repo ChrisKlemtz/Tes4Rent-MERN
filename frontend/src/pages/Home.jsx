@@ -68,66 +68,72 @@ const Home = () => {
       />
 
       {/* Hero */}
-      <section className="relative min-h-screen overflow-hidden">
-        <div className="absolute inset-0 bg-black" />
-        <div className="absolute inset-0">
-          <Parallax
-            bgImage={parallax3}
-            strength={500}
-            className="absolute inset-0"
-            style={{ height: "100%" }}
-          >
-            <div className="h-full w-full flex items-center justify-center">
-              <div className="absolute inset-0 bg-black bg-opacity-60" />
-              <div className="relative z-10 max-w-4xl flex flex-col items-center">
-                <h1 className="text-5xl font-bold mb-6">Experience Tesla</h1>
-                <p className="text-xl mb-8">
-                  Luxury. Performance. Sustainability. Rent a Tesla today and
-                  drive the future.
-                </p>
-                <div className="flex justify-center gap-4 flex-wrap mb-8">
-                  <Link to="fleet">
-                    <button className="bg-white text-black py-3 px-6 rounded-full font-semibold hover:bg-gray-200 transition">
-                      Explore Fleet
-                    </button>
-                  </Link>
-                  <Link to="contact">
-                    <button className="border-2 border-white text-white py-3 px-6 rounded-full font-semibold hover:bg-white hover:text-black transition">
-                      Contact Us
-                    </button>
-                  </Link>
-                </div>
-              </div>
-            </div>
-          </Parallax>
+<section className="relative min-h-screen overflow-hidden">
+  <div className="absolute inset-0 bg-black" />
+  
+  {/* Parallax3 - Hauptebene */}
+  <div className="absolute inset-0">
+    <Parallax
+      bgImage={parallax3}
+      strength={500}
+      className="w-full h-full"
+      bgImageStyle={{
+        objectFit: "cover",
+        width: "100%",
+        height: "100%",
+      }}
+    >
+      <div className="absolute inset-0 bg-opacity-60" />
+      <div className="relative z-10 max-w-4xl flex flex-col items-center justify-center h-full mx-auto px-4">
+        <h1 className="text-4xl md:text-5xl font-bold mb-6 text-center">Experience Tesla</h1>
+        <p className="text-lg md:text-xl mb-8 text-center">
+          Luxury. Performance. Sustainability. Rent a Tesla today and
+          drive the future.
+        </p>
+        <div className="flex justify-center gap-4 flex-wrap mb-8">
+          <Link to="fleet">
+            <button className="bg-white text-black py-3 px-6 rounded-full font-semibold hover:bg-gray-200 transition">
+              Explore Fleet
+            </button>
+          </Link>
+          <Link to="contact">
+            <button className="border-2 border-white text-white py-3 px-6 rounded-full font-semibold hover:bg-white hover:text-black transition">
+              Contact Us
+            </button>
+          </Link>
         </div>
-        <div className="absolute inset-0">
-          <Parallax
-            bgImage={parallax2}
-            strength={300}
-            className="absolute inset-0"
-            style={{ height: "100%" }}
-          >
-            <div
-              className="h-full w-full"
-              style={{ transform: "scale(1.05)" }}
-            />
-          </Parallax>
-        </div>
-        <div className="absolute inset-0">
-          <Parallax
-            bgImage={parallax1}
-            strength={100}
-            className="absolute inset-0"
-            style={{ height: "100%" }}
-          >
-            <div
-              className="h-full w-full"
-              style={{ transform: "scale(1.1)" }}
-            />
-          </Parallax>
-        </div>
-      </section>
+      </div>
+    </Parallax>
+  </div>
+  
+  {/* Parallax2 - Mittlere Ebene */}
+  <div className="absolute inset-0">
+    <Parallax
+      bgImage={parallax2}
+      strength={300}
+      className="w-full h-full"
+      bgImageStyle={{
+        objectFit: "cover",
+        width: "100%",
+        height: "100%",
+      }}
+    />
+  </div>
+  
+  {/* Parallax1 - Hintergrundebene */}
+  <div className="absolute inset-0">
+    <Parallax
+      bgImage={parallax1}
+      strength={100}
+      className="w-full h-full"
+      bgImageStyle={{
+        objectFit: "cover",
+        width: "100%",
+        height: "100%",
+      }}
+    />
+  </div>
+</section>
 
       {/* Fleet */}
       <section
