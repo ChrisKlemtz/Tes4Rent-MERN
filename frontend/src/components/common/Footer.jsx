@@ -7,7 +7,7 @@ const Footer = () => {
     <footer className="bg-black text-white py-12 px-6">
       <div className="max-w-6xl mx-auto grid md:grid-cols-4 gap-10 text-sm">
         <div>
-          <h2 className="text-xl font-bold mb-2">Tesla4Rent</h2>
+          <h2 className="text-xl font-bold mb-2">Tes4Rent</h2>
           <p className="text-gray-400">Drive electric. Drive the future.</p>
         </div>
         <div>

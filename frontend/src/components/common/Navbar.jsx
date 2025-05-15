@@ -9,7 +9,7 @@ const Navbar = () => {
 
   return (
     <nav className="fixed top-0 left-0 right-0 bg-white shadow z-40 py-4 px-6 flex justify-between items-center">
-      <h1 className="text-xl font-bold">Tesla4Rent</h1>
+      <h1 className="text-xl font-bold">Tes4Rent</h1>
       <div className="flex gap-6">
         <a
           href="#about"

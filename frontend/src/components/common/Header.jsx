@@ -8,7 +8,7 @@ const Header = () => {
           to="/"
           className="text-2xl font-bold tracking-wide hover:text-gray-300 transition"
         >
-          Tesla4Rent
+          Tes4Rent
         </Link>
         <nav className="hidden md:flex space-x-6 text-sm font-medium uppercase tracking-wide">
           <Link to="/cars" className="hover:text-gray-300 transition">

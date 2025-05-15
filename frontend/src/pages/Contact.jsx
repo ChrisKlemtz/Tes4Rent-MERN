@@ -21,7 +21,7 @@ const Contact = () => {
           </p>
           <ul className="text-gray-800 space-y-2">
             <li>
-              <strong>Email:</strong> support@tesla4rent.com
+              <strong>Email:</strong> support@tes4rent.com
             </li>
             <li>
               <strong>Phone:</strong> +49 123 456 789
@@ -36,7 +36,7 @@ const Contact = () => {
         {/* Google Map */}
         <div>
           <iframe
-            title="Tesla4Rent Location"
+            title="Tes4Rent Location"
             src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2428.4139166317353!2d13.388859315801526!3d52.52000697981295!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47a851c84732a4ef%3A0x6b3fdd65075c2c32!2sFriedrichstra%C3%9Fe%2C%2010117%20Berlin!5e0!3m2!1sen!2sde!4v1700000000000"
             width="100%"
             height="250"

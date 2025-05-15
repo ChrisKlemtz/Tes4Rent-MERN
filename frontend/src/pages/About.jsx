@@ -15,7 +15,7 @@ const About = () => {
         animate={{ opacity: 1 }}
         transition={{ delay: 0.2 }}
       >
-        About Tesla4Rent
+        About Tes4Rent
       </motion.h1>
 
       <div className="grid md:grid-cols-3 gap-10">
@@ -58,7 +58,7 @@ const About = () => {
 
       <div className="mt-16 text-center text-gray-700 text-lg leading-relaxed max-w-4xl mx-auto">
         <p className="mb-6">
-          Tesla4Rent combines cutting-edge technology with a passion for
+          Tes4Rent combines cutting-edge technology with a passion for
           sustainability. Whether you're exploring the city or embarking on a
           European road trip, we offer a seamless rental experience powered by
           innovation.
