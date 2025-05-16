@@ -80,7 +80,7 @@ const Cars = () => {
         model: "Roadster",
         range: 1000,
         pricePerDay: 299,
-        image: "/images/roadstar.jpg",
+        image: "/images/roadster.jpg",
       },
     ];
     setCars(fetchedCars);
