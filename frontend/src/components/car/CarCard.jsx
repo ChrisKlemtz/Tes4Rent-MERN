@@ -18,12 +18,21 @@ const CarCard = ({ car }) => {
         <p className="text-gray-400 text-sm mb-2">Range: {car.range} km</p>
         <p className="text-white font-medium mb-4">€{car.pricePerDay} / day</p>
 
-        <Link
-          to={`/cars/${car.id}`}
-          className="block w-full text-center bg-white text-black py-2 rounded-lg font-semibold hover:bg-gray-200 transition"
-        >
-          View Details
-        </Link>
+        {/* MARKIERTE STELLE - Buttons Gruppe */}
+        <div className="flex flex-col sm:flex-row gap-2">
+          <Link
+            to={`/cars/${car.id}`}
+            className="flex-1 text-center bg-white text-black py-2 rounded-lg font-semibold hover:bg-gray-200 transition"
+          >
+            View Details
+          </Link>
+          <Link
+            to={`/cars/${car.id}`} // Hier kannst du eine andere Route für "Book Now" einfügen falls benötigt
+            className="flex-1 text-center bg-white text-black py-2 rounded-lg font-semibold hover:bg-gray-200 transition"
+          >
+            Book Now
+          </Link>
+        </div>
       </div>
     </motion.div>
   );
