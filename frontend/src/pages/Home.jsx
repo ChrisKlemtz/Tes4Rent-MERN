@@ -205,7 +205,7 @@ const Home = () => {
         data-aos="fade-right"
       >
         <h2 className="text-4xl font-bold mb-14 text-center">
-          Why Tesla4Rent?
+          Why Tes4Rent?
         </h2>
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-10 max-w-6xl w-full">
           {[
