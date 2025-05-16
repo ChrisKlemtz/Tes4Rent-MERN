@@ -19,7 +19,7 @@ const mockCars = [
     pricePerDay: 109,
     image: "/images/tesla2.jpg",
     description:
-      "Affordable all-electric sedan that doesn’t compromise on tech.",
+      "Affordable all-electric sedan that doesn't compromise on tech.",
   },
   {
     id: 3,
@@ -37,6 +37,60 @@ const mockCars = [
     image: "/images/tesla4.jpg",
     description:
       "Versatile electric crossover designed for comfort and utility.",
+  },
+  {
+    id: 5,
+    model: "Model S Plaid",
+    range: 600,
+    pricePerDay: 199,
+    image: "/images/tesla-s-plaid.jpg",
+    description:
+      "The highest-performance Model S with tri-motor setup, 0-60 mph in 1.99s and top speed of 200 mph.",
+  },
+  {
+    id: 6,
+    model: "Model 3 Performance",
+    range: 507,
+    pricePerDay: 149,
+    image: "/images/tesla-3-performance.jpg",
+    description:
+      "High-performance version with dual motor AWD, track mode and 0-60 mph in 3.1s.",
+  },
+  {
+    id: 7,
+    model: "Model X Plaid",
+    range: 536,
+    pricePerDay: 219,
+    image: "/images/tesla-x-plaid.jpg",
+    description:
+      "The ultimate SUV with tri-motor Plaid powertrain, 0-60 mph in 2.5s and seating for 6.",
+  },
+  {
+    id: 8,
+    model: "Model Y Long Range",
+    range: 531,
+    pricePerDay: 139,
+    image: "/images/tesla-y-longrange.jpg",
+    description:
+      "Extended range version of Model Y with dual motor AWD and versatile cargo space.",
+  },
+  {
+    id: 9,
+    model: "Cybertruck",
+    range: 547,
+    pricePerDay: 179,
+    image: "/images/tesla-cybertruck.jpg",
+    description:
+      "Revolutionary all-electric truck with armored glass, adaptive air suspension and up to 3,500 lbs payload.",
+  },
+  {
+    id: 10,
+    model: "Roadster",
+    range: 1000,
+    pricePerDay: 499,
+    image: "/images/tesla-roadster.jpg",
+    description:
+      "The fastest production car ever with 1.9s 0-60 mph, top speed over 250 mph and SpaceX package options.",
   },
 ];
 
