@@ -71,7 +71,7 @@ const Home = () => {
       {/* Hero */}
       <section className="relative min-h-screen overflow-hidden">
         <div className="absolute inset-0 bg-black" />
-        
+
         {/* Parallax3 - Hauptebene */}
         <div className="absolute inset-0">
           <Parallax
@@ -86,13 +86,15 @@ const Home = () => {
           >
             <div className="absolute inset-0 bg-opacity-60" />
             <div className="relative z-10 max-w-4xl flex flex-col items-center justify-center h-full mx-auto px-4">
-              <h1 className="text-4xl md:text-5xl font-bold mb-6 text-center">Experience Tesla</h1>
+              <h1 className="text-4xl md:text-5xl font-bold mb-6 text-center">
+                Experience Tesla
+              </h1>
               <p className="text-lg md:text-xl mb-8 text-center">
                 Luxury. Performance. Sustainability. Rent a Tesla today and
                 drive the future.
               </p>
               <div className="flex justify-center gap-4 flex-wrap mb-8">
-                <Link to="fleet">
+                <Link to="">
                   <button className="bg-white text-black py-3 px-6 rounded-full font-semibold hover:bg-gray-200 transition">
                     Explore Fleet
                   </button>
@@ -106,13 +108,13 @@ const Home = () => {
             </div>
           </Parallax>
         </div>
-        
+
         {/* Parallax2 - Mittlere Ebene (nur auf Desktop sichtbar) */}
         <div className="hidden lg:block absolute inset-0">
           <Parallax
             bgImage={parallax2}
             strength={300}
-            className="w-full h-full" 
+            className="w-full h-full"
             bgImageStyle={{
               objectFit: "cover",
               width: "100%",
@@ -120,7 +122,7 @@ const Home = () => {
             }}
           />
         </div>
-        
+
         {/* Parallax1 - Hintergrundebene */}
         <div className="absolute inset-0">
           <Parallax
@@ -204,9 +206,7 @@ const Home = () => {
         className="min-h-screen flex flex-col justify-center items-center bg-black text-white px-6 py-28"
         data-aos="fade-right"
       >
-        <h2 className="text-4xl font-bold mb-14 text-center">
-          Why Tes4Rent?
-        </h2>
+        <h2 className="text-4xl font-bold mb-14 text-center">Why Tes4Rent?</h2>
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-10 max-w-6xl w-full">
           {[
             {
