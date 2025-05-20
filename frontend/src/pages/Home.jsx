@@ -138,7 +138,7 @@ const Home = () => {
       {/* Hero */}
       <section className="relative min-h-screen overflow-hidden">
         <div className="absolute inset-0 bg-black" />
-        
+
         {/* Parallax3 - Hauptebene */}
         <div className="absolute inset-0">
           <Parallax
@@ -173,13 +173,13 @@ const Home = () => {
             </div>
           </Parallax>
         </div>
-        
+
         {/* Parallax2 - Mittlere Ebene (nur auf Desktop sichtbar) */}
         <div className="hidden lg:block absolute inset-0">
           <Parallax
             bgImage={parallax2}
             strength={300}
-            className="w-full h-full" 
+            className="w-full h-full"
             bgImageStyle={{
               objectFit: "cover",
               width: "100%",
@@ -187,7 +187,7 @@ const Home = () => {
             }}
           />
         </div>
-        
+
         {/* Parallax1 - Hintergrundebene */}
         <div className="absolute inset-0">
           <Parallax
@@ -210,7 +210,7 @@ const Home = () => {
         data-aos="fade-left"
       >
         <h2 className="text-4xl font-bold text-center mb-14">Our Fleet</h2>
-        
+
         <div className="relative max-w-6xl mx-auto">
           <Swiper
             ref={swiperRef}
@@ -219,7 +219,7 @@ const Home = () => {
             spaceBetween={30}
             centeredSlides={true}
             loop={true}
-            autoplay={{ delay: 3500, disableOnInteraction: true }}
+            autoplay={{ delay: 3000, disableOnInteraction: true }}
             onSlideChange={(swiper) => setActiveIndex(swiper.realIndex)}
             breakpoints={{
               320: { slidesPerView: 1 },
@@ -256,20 +256,20 @@ const Home = () => {
               </SwiperSlide>
             ))}
           </Swiper>
-          
-          <button 
+
+          <button
             onClick={handlePrev}
             className="absolute left-0 top-1/2 -translate-y-1/2 z-20 bg-black bg-opacity-50 text-white p-3 rounded-full hover:bg-opacity-70 transition-all duration-300 -ml-4"
           >
             <FaChevronLeft className="text-xl" />
           </button>
-          
-          <button 
+
+          <butto
             onClick={handleNext}
             className="absolute right-0 top-1/2 -translate-y-1/2 z-20 bg-black bg-opacity-50 text-white p-3 rounded-full hover:bg-opacity-70 transition-all duration-300 -mr-4"
           >
             <FaChevronRight className="text-xl" />
-          </button>
+          </butto>
         </div>
       </section>
 
