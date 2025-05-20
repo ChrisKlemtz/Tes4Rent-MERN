@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { motion, useScroll, useSpring } from "framer-motion";
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -20,6 +20,8 @@ import {
   FaChargingStation,
   FaCheckCircle,
   FaPhoneAlt,
+  FaChevronLeft,
+  FaChevronRight,
 } from "react-icons/fa";
 import { Parallax } from "react-parallax";
 import parallax1 from "/src/assets/parallax1.png";
@@ -49,6 +51,57 @@ const testimonials = [
   },
 ];
 
+const fleetData = [
+  {
+    model: "Model S Plaid",
+    image: "/images/model-s.jpg",
+    specs: ["637 km range", "2.1s 0-100 km/h", "5 seats", "1,020 hp"],
+    price: "499 €/day",
+  },
+  {
+    model: "Model 3 Performance",
+    image: "/images/model-3.jpg",
+    specs: ["547 km range", "3.3s 0-100 km/h", "5 seats", "450 hp"],
+    price: "349 €/day",
+  },
+  {
+    model: "Model X Plaid",
+    image: "/images/model-x.jpg",
+    specs: ["536 km range", "2.6s 0-100 km/h", "6 seats", "1,020 hp"],
+    price: "549 €/day",
+  },
+  {
+    model: "Model Y Long Range",
+    image: "/images/model-y.jpg",
+    specs: ["533 km range", "4.8s 0-100 km/h", "5 seats", "384 hp"],
+    price: "379 €/day",
+  },
+  {
+    model: "Cybertruck",
+    image: "/images/cybertruck.jpg",
+    specs: ["547 km range", "2.9s 0-100 km/h", "6 seats", "845 hp"],
+    price: "599 €/day",
+  },
+  {
+    model: "Roadster",
+    image: "/images/roadster.jpg",
+    specs: ["1,000 km range", "1.9s 0-100 km/h", "4 seats", "1,500 hp"],
+    price: "999 €/day",
+  },
+  {
+    model: "Model S",
+    image: "/images/model-s.jpg",
+    specs: ["652 km range", "3.2s 0-100 km/h", "5 seats", "670 hp"],
+    price: "399 €/day",
+  },
+  {
+    model: "Model 3",
+    image: "/images/model-3.jpg",
+    specs: ["491 km range", "5.6s 0-100 km/h", "5 seats", "283 hp"],
+    price: "299 €/day",
+  },
+];
+
 const Home = () => {
   const { scrollYProgress } = useScroll();
   const scaleX = useSpring(scrollYProgress, {
@@ -56,10 +109,24 @@ const Home = () => {
     damping: 30,
     restDelta: 0.001,
   });
+  const [activeIndex, setActiveIndex] = useState(0);
+  const swiperRef = useRef(null);
 
   useEffect(() => {
     AOS.init({ once: true, duration: 800 });
   }, []);
+
+  const handlePrev = () => {
+    if (swiperRef.current) {
+      swiperRef.current.swiper.slidePrev();
+    }
+  };
+
+  const handleNext = () => {
+    if (swiperRef.current) {
+      swiperRef.current.swiper.slideNext();
+    }
+  };
 
   return (
     <div className="text-white bg-black scroll-smooth">
@@ -71,7 +138,7 @@ const Home = () => {
       {/* Hero */}
       <section className="relative min-h-screen overflow-hidden">
         <div className="absolute inset-0 bg-black" />
-
+        
         {/* Parallax3 - Hauptebene */}
         <div className="absolute inset-0">
           <Parallax
@@ -86,19 +153,17 @@ const Home = () => {
           >
             <div className="absolute inset-0 bg-opacity-60" />
             <div className="relative z-10 max-w-4xl flex flex-col items-center justify-center h-full mx-auto px-4">
-              <h1 className="text-4xl md:text-5xl font-bold mb-6 text-center">
-                Experience Tesla
-              </h1>
+              <h1 className="text-4xl md:text-5xl font-bold mb-6 text-center">Experience Tesla</h1>
               <p className="text-lg md:text-xl mb-8 text-center">
                 Luxury. Performance. Sustainability. Rent a Tesla today and
                 drive the future.
               </p>
               <div className="flex justify-center gap-4 flex-wrap mb-8">
-                <Link to="">
+                <a href="#fleet">
                   <button className="bg-white text-black py-3 px-6 rounded-full font-semibold hover:bg-gray-200 transition">
                     Explore Fleet
                   </button>
-                </Link>
+                </a>
                 <Link to="contact">
                   <button className="border-2 border-white text-white py-3 px-6 rounded-full font-semibold hover:bg-white hover:text-black transition">
                     Contact Us
@@ -108,13 +173,13 @@ const Home = () => {
             </div>
           </Parallax>
         </div>
-
+        
         {/* Parallax2 - Mittlere Ebene (nur auf Desktop sichtbar) */}
         <div className="hidden lg:block absolute inset-0">
           <Parallax
             bgImage={parallax2}
             strength={300}
-            className="w-full h-full"
+            className="w-full h-full" 
             bgImageStyle={{
               objectFit: "cover",
               width: "100%",
@@ -122,7 +187,7 @@ const Home = () => {
             }}
           />
         </div>
-
+        
         {/* Parallax1 - Hintergrundebene */}
         <div className="absolute inset-0">
           <Parallax
@@ -141,62 +206,70 @@ const Home = () => {
       {/* Fleet */}
       <section
         id="fleet"
-        className="min-h-screen px-6 py-28 bg-white text-black"
+        className="min-h-screen px-6 py-28 bg-white text-black relative"
         data-aos="fade-left"
       >
         <h2 className="text-4xl font-bold text-center mb-14">Our Fleet</h2>
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-10 max-w-6xl mx-auto w-full">
-          {[
-            {
-              model: "Model S",
-              image: "/images/model-s.jpg",
-              specs: ["652 km range", "3.2s 0-100 km/h", "5 seats"],
-              price: "399 €/day",
-            },
-            {
-              model: "Model 3",
-              image: "/images/model-3.jpg",
-              specs: ["491 km range", "5.6s 0-100 km/h", "5 seats"],
-              price: "299 €/day",
-            },
-            {
-              model: "Model X",
-              image: "/images/model-s.jpg",
-              specs: ["580 km range", "2.6s 0-100 km/h", "6 seats"],
-              price: "499 €/day",
-            },
-            {
-              model: "Model Y",
-              image: "/images/model-3.jpg",
-              specs: ["533 km range", "5.0s 0-100 km/h", "5 seats"],
-              price: "329 €/day",
-            },
-          ].map((car, index) => (
-            <div
-              key={index}
-              className="bg-white text-black rounded-2xl overflow-hidden shadow-xl hover:shadow-2xl transition-transform transform hover:scale-105 duration-300"
-            >
-              <div className="w-full h-64 flex items-center justify-center bg-gray-100">
-                <img
-                  src={car.image}
-                  alt={car.model}
-                  className="max-h-full object-contain"
-                  loading="lazy"
-                />
-              </div>
-              <div className="p-6">
-                <h3 className="text-2xl font-bold mb-3 text-gray-900">
-                  {car.model}
-                </h3>
-                <ul className="text-sm text-gray-600 mb-4 space-y-1">
-                  {car.specs.map((spec, i) => (
-                    <li key={i}>• {spec}</li>
-                  ))}
-                </ul>
-                <p className="font-semibold text-gray-800">{car.price}</p>
-              </div>
-            </div>
-          ))}
+        
+        <div className="relative max-w-6xl mx-auto">
+          <Swiper
+            ref={swiperRef}
+            modules={[Autoplay]}
+            slidesPerView={3}
+            spaceBetween={30}
+            centeredSlides={true}
+            loop={true}
+            autoplay={{ delay: 3500, disableOnInteraction: true }}
+            onSlideChange={(swiper) => setActiveIndex(swiper.realIndex)}
+            breakpoints={{
+              320: { slidesPerView: 1 },
+              768: { slidesPerView: 2 },
+              1024: { slidesPerView: 3 },
+            }}
+            className="py-10"
+          >
+            {fleetData.map((car, index) => (
+              <SwiperSlide key={index}>
+                <div className={`relative transition-all duration-300 ${activeIndex === index ? 'scale-110 z-10' : 'scale-90 opacity-90'}`}>
+                  <div className="bg-white rounded-2xl overflow-hidden shadow-xl hover:shadow-2xl transition-transform duration-300">
+                    <div className="w-full h-64 flex items-center justify-center bg-gray-100">
+                      <img
+                        src={car.image}
+                        alt={car.model}
+                        className="max-h-full object-contain"
+                        loading="lazy"
+                      />
+                    </div>
+                    <div className="p-6">
+                      <h3 className="text-2xl font-bold mb-3 text-gray-900">
+                        {car.model}
+                      </h3>
+                      <ul className="text-sm text-gray-600 mb-4 space-y-1">
+                        {car.specs.map((spec, i) => (
+                          <li key={i}>• {spec}</li>
+                        ))}
+                      </ul>
+                      <p className="font-semibold text-gray-800">{car.price}</p>
+                    </div>
+                  </div>
+                </div>
+              </SwiperSlide>
+            ))}
+          </Swiper>
+          
+          <button 
+            onClick={handlePrev}
+            className="absolute left-0 top-1/2 -translate-y-1/2 z-20 bg-black bg-opacity-50 text-white p-3 rounded-full hover:bg-opacity-70 transition-all duration-300 -ml-4"
+          >
+            <FaChevronLeft className="text-xl" />
+          </button>
+          
+          <button 
+            onClick={handleNext}
+            className="absolute right-0 top-1/2 -translate-y-1/2 z-20 bg-black bg-opacity-50 text-white p-3 rounded-full hover:bg-opacity-70 transition-all duration-300 -mr-4"
+          >
+            <FaChevronRight className="text-xl" />
+          </button>
         </div>
       </section>
 
@@ -206,7 +279,9 @@ const Home = () => {
         className="min-h-screen flex flex-col justify-center items-center bg-black text-white px-6 py-28"
         data-aos="fade-right"
       >
-        <h2 className="text-4xl font-bold mb-14 text-center">Why Tes4Rent?</h2>
+        <h2 className="text-4xl font-bold mb-14 text-center">
+          Why Tes4Rent?
+        </h2>
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-10 max-w-6xl w-full">
           {[
             {
