@@ -375,7 +375,7 @@ const Home = () => {
             </p>
             <p className="text-lg">
               <FaPhoneAlt className="inline-block mr-2 text-black" />{" "}
-              support@tesla4rent.pl
+              support@tes4rent.pl
             </p>
             <p className="text-gray-600">Mon–Fri: 8:00 – 18:00</p>
             <p className="text-lg">
