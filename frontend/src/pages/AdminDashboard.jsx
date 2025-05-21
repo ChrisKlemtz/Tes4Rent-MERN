@@ -1,42 +1,28 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
-
-const fleetData = [
-  {
-    model: "Model S",
-    seats: 5,
-    range: 652,
-    acceleration: "3.2s",
-    price: 399,
-  },
-  {
-    model: "Model 3",
-    seats: 5,
-    range: 491,
-    acceleration: "5.6s",
-    price: 299,
-  },
-  {
-    model: "Model X",
-    seats: 6,
-    range: 580,
-    acceleration: "2.6s",
-    price: 499,
-  },
-  {
-    model: "Model Y",
-    seats: 5,
-    range: 533,
-    acceleration: "5.0s",
-    price: 329,
-  },
-];
+import API from "../api/api";
 
 const AdminDashboard = () => {
+  const [fleet, setFleet] = useState([]);
   const [searchModel, setSearchModel] = useState("");
   const [searchSeats, setSearchSeats] = useState("");
+  const [error, setError] = useState("");
 
-  const filteredFleet = fleetData.filter((car) => {
+  useEffect(() => {
+    const fetchFleet = async () => {
+      try {
+        const res = await API.get("/cars");
+        setFleet(res.data);
+      } catch (err) {
+        console.error(err);
+        setError("Failed to load fleet data.");
+      }
+    };
+
+    fetchFleet();
+  }, []);
+
+  const filteredFleet = fleet.filter((car) => {
     const matchesModel = car.model
       .toLowerCase()
       .includes(searchModel.toLowerCase());
@@ -94,30 +80,37 @@ const AdminDashboard = () => {
             className="p-2 border border-gray-300 rounded w-full md:w-1/3"
           />
         </div>
-        <div className="overflow-x-auto">
-          <table className="w-full text-left border border-gray-300 text-sm">
-            <thead>
-              <tr className="bg-gray-200">
-                <th className="p-3 border">Model</th>
-                <th className="p-3 border">Seats</th>
-                <th className="p-3 border">Range (km)</th>
-                <th className="p-3 border">0-100 km/h</th>
-                <th className="p-3 border">Price €/day</th>
-              </tr>
-            </thead>
-            <tbody>
-              {filteredFleet.map((car, i) => (
-                <tr key={i} className="hover:bg-gray-100">
-                  <td className="p-3 border">{car.model}</td>
-                  <td className="p-3 border">{car.seats}</td>
-                  <td className="p-3 border">{car.range}</td>
-                  <td className="p-3 border">{car.acceleration}</td>
-                  <td className="p-3 border font-semibold">€{car.price}</td>
+
+        {error ? (
+          <p className="text-red-500">{error}</p>
+        ) : (
+          <div className="overflow-x-auto">
+            <table className="w-full text-left border border-gray-300 text-sm">
+              <thead>
+                <tr className="bg-gray-200">
+                  <th className="p-3 border">Model</th>
+                  <th className="p-3 border">Seats</th>
+                  <th className="p-3 border">Range (km)</th>
+                  <th className="p-3 border">0–100 km/h</th>
+                  <th className="p-3 border">Price €/day</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
+              </thead>
+              <tbody>
+                {filteredFleet.map((car, i) => (
+                  <tr key={car._id || i} className="hover:bg-gray-100">
+                    <td className="p-3 border">{car.model}</td>
+                    <td className="p-3 border">{car.seats || "-"}</td>
+                    <td className="p-3 border">{car.range} km</td>
+                    <td className="p-3 border">{car.acceleration || "-"}</td>
+                    <td className="p-3 border font-semibold">
+                      €{car.pricePerDay}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        )}
       </motion.div>
 
       {/* Placeholder panels */}
