@@ -1,19 +1,30 @@
 import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { motion } from "framer-motion";
+import API from "../api/api";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
   const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    setError("");
 
-    const fakeUser = { email };
-    localStorage.setItem("user", JSON.stringify(fakeUser));
+    try {
+      const res = await API.post("/auth/login", { email, password });
 
-    navigate("/dashboard");
+      localStorage.setItem("token", res.data.token);
+      localStorage.setItem("user", JSON.stringify(res.data.user));
+
+      navigate("/dashboard");
+    } catch (err) {
+      const message =
+        err.response?.data?.message || "Login failed. Please try again.";
+      setError(message);
+    }
   };
 
   return (
@@ -26,6 +37,10 @@ const Login = () => {
         className="bg-gray-100 w-full max-w-md p-10 rounded-2xl shadow-2xl"
       >
         <h2 className="text-3xl font-bold text-center mb-6">Login</h2>
+
+        {error && (
+          <p className="text-red-500 text-sm mb-4 text-center">{error}</p>
+        )}
 
         <input
           type="email"

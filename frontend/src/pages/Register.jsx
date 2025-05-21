@@ -1,28 +1,42 @@
 import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { motion } from "framer-motion";
+import API from "../api/api"; // import axios client
 
 const Register = () => {
   const [name, setName] = useState("");
-  const [phone, setPhone] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [error, setError] = useState("");
 
   const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    setError("");
 
     if (password !== confirmPassword) {
-      alert("Passwords do not match");
+      setError("Passwords do not match");
       return;
     }
 
-    const newUser = { name, email, phone };
-    localStorage.setItem("user", JSON.stringify(newUser));
+    try {
+      const res = await API.post("/auth/register", {
+        name,
+        email,
+        password,
+      });
 
-    navigate("/dashboard");
+      localStorage.setItem("token", res.data.token);
+      localStorage.setItem("user", JSON.stringify(res.data.user));
+
+      navigate("/dashboard");
+    } catch (err) {
+      const message =
+        err.response?.data?.message || "Registration failed. Try again.";
+      setError(message);
+    }
   };
 
   return (
@@ -36,6 +50,10 @@ const Register = () => {
       >
         <h2 className="text-3xl font-bold text-center mb-6">Register</h2>
 
+        {error && (
+          <p className="text-red-500 text-sm mb-4 text-center">{error}</p>
+        )}
+
         <input
           type="text"
           placeholder="Full Name"
@@ -43,14 +61,6 @@ const Register = () => {
           value={name}
           onChange={(e) => setName(e.target.value)}
           required
-        />
-
-        <input
-          type="tel"
-          placeholder="Phone Number"
-          className="w-full p-3 mb-4 rounded-lg bg-white text-black border border-gray-300 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-black"
-          value={phone}
-          onChange={(e) => setPhone(e.target.value)}
         />
 
         <input

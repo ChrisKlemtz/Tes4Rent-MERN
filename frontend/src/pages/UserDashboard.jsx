@@ -1,17 +1,28 @@
 import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
+import API from "../api/api";
 
 const UserDashboard = () => {
   const [reservations, setReservations] = useState([]);
+  const [error, setError] = useState("");
 
   useEffect(() => {
-    const stored = JSON.parse(localStorage.getItem("reservations")) || [];
-    setReservations(stored);
+    const fetchBookings = async () => {
+      try {
+        const res = await API.get("/bookings/user");
+        setReservations(res.data);
+      } catch (err) {
+        console.error(err);
+        setError("Failed to load reservations.");
+      }
+    };
+
+    fetchBookings();
   }, []);
 
   return (
     <motion.div
-      className="min-h-screen bg-white text-white px-6 py-16 max-w-7xl mx-auto"
+      className="min-h-screen bg-white text-black px-6 py-16 max-w-7xl mx-auto"
       initial={{ opacity: 0, y: 40 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6 }}
@@ -20,9 +31,13 @@ const UserDashboard = () => {
         Your Reservations
       </h1>
 
+      {error && (
+        <p className="text-center text-red-500 font-medium mb-6">{error}</p>
+      )}
+
       {reservations.length === 0 ? (
         <motion.p
-          className="text-center text-gray-400 text-lg"
+          className="text-center text-gray-500 text-lg"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
         >
@@ -33,22 +48,22 @@ const UserDashboard = () => {
           {reservations.map((res, index) => (
             <motion.div
               key={index}
-              className="bg-black rounded-2xl shadow-md p-4 flex flex-col"
+              className="bg-gray-100 rounded-2xl shadow-md p-4 flex flex-col"
               whileHover={{ scale: 1.02 }}
             >
               <img
-                src={res.image}
-                alt={res.carModel}
+                src={res.car.image || "/default-car.jpg"}
+                alt={res.car.model}
                 className="w-full h-40 object-cover rounded-xl mb-4"
               />
-              <h2 className="text-xl font-semibold mb-2">{res.carModel}</h2>
-              <p className="text-sm text-gray-400 mb-1">
-                <span className="text-white font-medium">Pickup:</span>{" "}
-                {new Date(res.pickupDate).toLocaleString()}
+              <h2 className="text-xl font-semibold mb-2">{res.car.model}</h2>
+              <p className="text-sm text-gray-600 mb-1">
+                <span className="font-medium text-black">Pickup:</span>{" "}
+                {new Date(res.startDate).toLocaleString()}
               </p>
-              <p className="text-sm text-gray-400">
-                <span className="text-white font-medium">Return:</span>{" "}
-                {new Date(res.returnDate).toLocaleString()}
+              <p className="text-sm text-gray-600">
+                <span className="font-medium text-black">Return:</span>{" "}
+                {new Date(res.endDate).toLocaleString()}
               </p>
             </motion.div>
           ))}
