@@ -1,112 +1,30 @@
 import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
-
-const mockCars = [
-  {
-    id: 1,
-    model: "Model S",
-    range: 652,
-    pricePerDay: 139,
-    image: "/images/model-s.jpg",
-    description:
-      "Luxury electric sedan with futuristic performance and long range.",
-  },
-  {
-    id: 2,
-    model: "Model 3",
-    range: 491,
-    pricePerDay: 109,
-    image: "/images/model-3.jpg",
-    description:
-      "Affordable all-electric sedan that doesn't compromise on tech.",
-  },
-  {
-    id: 3,
-    model: "Model X",
-    range: 580,
-    pricePerDay: 159,
-    image: "/images/model-x.jpg",
-    description: "Spacious electric SUV with falcon-wing doors and AWD.",
-  },
-  {
-    id: 4,
-    model: "Model Y",
-    range: 533,
-    pricePerDay: 119,
-    image: "/images/model-y.jpg",
-    description:
-      "Versatile electric crossover designed for comfort and utility.",
-  },
-  {
-    id: 5,
-    model: "Model S Plaid",
-    range: 600,
-    pricePerDay: 199,
-    image: "/images/model-s-plaid.jpg",
-    description:
-      "The highest-performance Model S with tri-motor setup, 0-60 mph in 1.99s and top speed of 200 mph.",
-  },
-  {
-    id: 6,
-    model: "Model 3 Performance",
-    range: 507,
-    pricePerDay: 149,
-    image: "/images/model-3-performance.jpg",
-    description:
-      "High-performance version with dual motor AWD, track mode and 0-60 mph in 3.1s.",
-  },
-  {
-    id: 7,
-    model: "Model X Plaid",
-    range: 536,
-    pricePerDay: 219,
-    image: "/images/model-x-plaid.jpg",
-    description:
-      "The ultimate SUV with tri-motor Plaid powertrain, 0-60 mph in 2.5s and seating for 6.",
-  },
-  {
-    id: 8,
-    model: "Model Y Long Range",
-    range: 531,
-    pricePerDay: 139,
-    image: "/images/model-y-long-range.jpg",
-    description:
-      "Extended range version of Model Y with dual motor AWD and versatile cargo space.",
-  },
-  {
-    id: 9,
-    model: "Cybertruck",
-    range: 547,
-    pricePerDay: 179,
-    image: "/images/cybertruck.jpg",
-    description:
-      "Revolutionary all-electric truck with armored glass, adaptive air suspension and up to 3,500 lbs payload.",
-  },
-  {
-    id: 10,
-    model: "Roadster",
-    range: 1000,
-    pricePerDay: 499,
-    image: "/images/roadster.jpg",
-    description:
-      "The fastest production car ever with 1.9s 0-60 mph, top speed over 250 mph and SpaceX package options.",
-  },
-];
+import API from "../api/api";
 
 const CarDetails = () => {
   const { id } = useParams();
+  const navigate = useNavigate();
   const [car, setCar] = useState(null);
   const [pickupDate, setPickupDate] = useState("");
   const [returnDate, setReturnDate] = useState("");
-  const navigate = useNavigate();
+  const [error, setError] = useState("");
 
   useEffect(() => {
-    const foundCar = mockCars.find((c) => c.id === parseInt(id));
-    setCar(foundCar);
+    const fetchCar = async () => {
+      try {
+        const res = await API.get(`/cars/${id}`);
+        setCar(res.data);
+      } catch (err) {
+        setError("Car not found or failed to load.");
+      }
+    };
+
+    fetchCar();
   }, [id]);
 
-  const handleReservation = (e) => {
+  const handleReservation = async (e) => {
     e.preventDefault();
 
     if (!pickupDate || !returnDate) {
@@ -114,29 +32,30 @@ const CarDetails = () => {
       return;
     }
 
-    const reservation = {
-      carId: car.id,
-      carModel: car.model,
-      pickupDate,
-      returnDate,
-      image: car.image,
-    };
+    try {
+      await API.post("/bookings", {
+        car: car._id,
+        startDate: pickupDate,
+        endDate: returnDate,
+      });
 
-    const existing = JSON.parse(localStorage.getItem("reservations")) || [];
-    existing.push(reservation);
-    localStorage.setItem("reservations", JSON.stringify(existing));
-
-    alert(`Reserved ${car.model} from ${pickupDate} to ${returnDate}`);
-    navigate("/dashboard");
+      alert(`Reserved ${car.model} from ${pickupDate} to ${returnDate}`);
+      navigate("/dashboard");
+    } catch (err) {
+      console.error(err);
+      alert("Failed to create reservation. Try again.");
+    }
   };
 
-  if (!car) {
+  if (error) {
     return (
-      <div className="text-center text-gray-300 py-20">
-        <p>Car not found.</p>
+      <div className="text-center text-red-500 py-20">
+        <p>{error}</p>
       </div>
     );
   }
+
+  if (!car) return null;
 
   return (
     <motion.div

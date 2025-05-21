@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import CarCard from "../components/car/CarCard";
 import CarFilter from "../components/car/CarFilter";
+import API from "../api/api";
 
 const Cars = () => {
   const [cars, setCars] = useState([]);
@@ -11,79 +12,16 @@ const Cars = () => {
   });
 
   useEffect(() => {
-    const fetchedCars = [
-      {
-        id: 1,
-        model: "Model S",
-        range: 652,
-        pricePerDay: 139,
-        image: "/images/model-s.jpg",
-      },
-      {
-        id: 2,
-        model: "Model 3",
-        range: 491,
-        pricePerDay: 109,
-        image: "/images/model-3.jpg",
-      },
-      {
-        id: 3,
-        model: "Model X",
-        range: 580,
-        pricePerDay: 159,
-        image: "/images/model-x.jpg",
-      },
-      {
-        id: 4,
-        model: "Model Y",
-        range: 533,
-        pricePerDay: 119,
-        image: "/images/model-y.jpg",
-      },
-      {
-        id: 5,
-        model: "Model S Plaid",
-        range: 637,
-        pricePerDay: 189,
-        image: "/images/model-s-plaid.jpg",
-      },
-      {
-        id: 6,
-        model: "Model 3 Performance",
-        range: 507,
-        pricePerDay: 129,
-        image: "/images/model-3-performance.jpg",
-      },
-      {
-        id: 7,
-        model: "Model X Plaid",
-        range: 547,
-        pricePerDay: 179,
-        image: "/images/model-x-plaid.jpg",
-      },
-      {
-        id: 8,
-        model: "Model Y Long Range",
-        range: 565,
-        pricePerDay: 129,
-        image: "/images/model-y-long-range.jpg",
-      },
-      {
-        id: 9,
-        model: "Cybertruck",
-        range: 800,
-        pricePerDay: 199,
-        image: "/images/cybertruck.jpg",
-      },
-      {
-        id: 10,
-        model: "Roadster",
-        range: 1000,
-        pricePerDay: 299,
-        image: "/images/roadster.jpg",
-      },
-    ];
-    setCars(fetchedCars);
+    const fetchCars = async () => {
+      try {
+        const res = await API.get("/cars");
+        setCars(res.data);
+      } catch (err) {
+        console.error("Failed to fetch cars:", err);
+      }
+    };
+
+    fetchCars();
   }, []);
 
   const filteredCars = cars.filter((car) => {
@@ -98,14 +36,14 @@ const Cars = () => {
   });
 
   return (
-    <div className="px-6 py-16 bg-white text-white min-h-screen max-w-7xl mx-auto">
+    <div className="px-6 py-16 bg-white text-black min-h-screen max-w-7xl mx-auto">
       <h1 className="text-4xl font-bold mb-8 text-center">Our Tesla Fleet</h1>
 
       <CarFilter filters={filters} onChange={setFilters} />
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-10">
         {filteredCars.length > 0 ? (
-          filteredCars.map((car) => <CarCard key={car.id} car={car} />)
+          filteredCars.map((car) => <CarCard key={car._id} car={car} />)
         ) : (
           <p className="text-gray-400 col-span-full text-center">
             No cars match the selected filters.
